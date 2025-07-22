@@ -10,6 +10,19 @@ const {Server}=require("socket.io");
 const io=new Server(server);
 const bodyParser=require("body-parser");
 const path=require("path");
+const mongoose=require("mongoose");
+
+main()
+.then(()=>{
+    console.log("mongo connected to the server");
+})
+.catch((err)=>{
+    console.log(err)
+})
+
+ async function main() {
+    await mongoose.connect("mongodb://127.0.0.1:27017/Track");
+}
 
 app.use(bodyParser.json());
 app.use(express.static("public"));

@@ -1,20 +1,9 @@
 const express=require("express");
 const { model } = require("mongoose");
 const router=express.Router();
-const mongoose=require("mongoose");
 const {Data}=require("../Model/Data");
 
-main()
-.then(()=>{
-    console.log("mongo connected to the server");
-})
-.catch((err)=>{
-    console.log(err)
-})
 
- async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/Track");
-}
 router.get("/",(req,res)=>{
     res.send("hello");
 })
