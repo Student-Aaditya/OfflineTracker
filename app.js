@@ -48,4 +48,4 @@ server.listen(port,(req,res)=>{
     console.log(`server working on ${port}`);
 })
 
-module.exports={app,server,io};
+module.exports=app;
