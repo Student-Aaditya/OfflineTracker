@@ -23,7 +23,7 @@ app.use(express.static("public"));
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"VIEW"));
 
-app.use("/track",routes);
+app.use("/",routes);
 
 io.on("connection",(socket)=>{
    

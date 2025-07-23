@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <button><a href="/track/map">Click</a></button>
+    <button><a href="/map">Click</a></button>
     <%for(let data of datas){%>
         <div class="data">
             <div id="data-name">
@@ -52,7 +52,7 @@
             </div>                      
 
             <div class="btn">
-                <form method="POST" action="/track/data/<%=data._id%>?_method=Delete">
+                <form method="POST" action="/<%=data._id%>?_method=Delete">
                     <button>Delete</button>
                 </form>
             </div>

@@ -47,7 +47,7 @@ router.get("/", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     let { id } = req.params;
     await Data.findByIdAndDelete(id);
-    res.redirect("/track");
+    res.redirect("/");
 })
 
 module.exports = router;
