@@ -1,31 +1,41 @@
-const express=require("express");
+const express = require("express");
 const { model } = require("mongoose");
-const router=express.Router();
-const {Data}=require("../Model/Data");
+const router = express.Router();
+const Data = require("../Model/Data");
+const mongoose = require("mongoose");
+const http=require("http");
 
+const {Server}=require("socket.io");
+const server=http.createServer(router);
+const io=new Server(server);
 
-router.get("/",(req,res)=>{
-    res.send("hello");
-})
-
-router.get("/index",(req,res)=>{
-    res.render("index.ejs");
-})
-router.get("/data",(req,res)=>{
-    res.render("index.ejs");
-})
-
-router.post("/data",(req,res)=>{
-    const {name,Latitude,Longitude}=req.body;
-    console.log(name);
-    const datas=new Data({
-        name:name,
-        Latitude:Latitude,
-        Longitude:Longitude
-        
+main()
+    .then(() => {
+        console.log("mongo connected to the server");
     })
-    datas.save();
-    res.json({data:"submit successful"}).status(200);
+    .catch((err) => {
+        console.log(err)
+    })
+
+async function main() {
+    await mongoose.connect("mongodb://127.0.0.1:27017/Track");
+}
+
+
+
+router.get("/map",(req,res)=>{
+    res.render("map.ejs");
 })
 
-module.exports=router;
+router.get("/data", async(req, res) => {
+    const datas=await Data.find({});
+    res.render("index.ejs",{datas});
+})  
+
+router.delete("/data/:id",async(req,res)=>{
+    let {id}=req.params;
+    await Data.findByIdAndDelete(id);
+    res.redirect("/track/data");
+})
+
+module.exports = router;
