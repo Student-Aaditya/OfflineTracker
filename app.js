@@ -47,3 +47,5 @@ io.on("connection",(socket)=>{
 server.listen(port,(req,res)=>{
     console.log(`server working on ${port}`);
 })
+
+module.exports=app;
