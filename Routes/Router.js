@@ -39,15 +39,15 @@ router.get("/map", (req, res) => {
     res.render("map.ejs");
 })
 
-router.get("/data", async (req, res) => {
+router.get("/", async (req, res) => {
     const datas = await Data.find({});
     res.render("index.ejs", { datas });
 })
 
-router.delete("/data/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     let { id } = req.params;
     await Data.findByIdAndDelete(id);
-    res.redirect("/track/data");
+    res.redirect("/track");
 })
 
 module.exports = router;
