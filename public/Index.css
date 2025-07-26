@@ -1,0 +1,14 @@
+.auth{
+    display: flex;
+    margin: 0 0 0 40rem;
+    padding: 0 0 0 2rem;
+}
+.nav-link{
+    margin: 0 0 0 5rem;
+    font-size: 1.3rem;
+    color:white;
+}
+
+.navbar{
+    background-color: black;
+}

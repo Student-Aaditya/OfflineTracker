@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<% layout("/INCLUDE/Boilerplate")%>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <style>
         .data {
             display: flex;
@@ -29,35 +24,61 @@
             margin: .5rem 0 0 1rem;
         }
     </style>
-</head>
 
-<body>
-    <button><a href="/map">Click</a></button>
-    <%for(let data of datas){%>
+    <% if (user) { const myData=datas.find(d=> d.name._id.toString() === user._id.toString());
+        if (myData) { %>
+        <h1>Welcome <%= user.username %>
+        </h1>
         <div class="data">
             <div id="data-name">
                 <h2>
-                    <%=data.name%>
+                    <%= myData.name.username %>
                 </h2>
             </div>
             <div id="data-lat">
-                <h2>
-                    <%=data.Latitude%>
+                <h2>x
+                    <%= myData.Latitude %>
                 </h2>
             </div>
             <div id="data-long">
                 <h2>
-                    <%=data.Longitude%>
+                    <%= myData.Longitude %>
                 </h2>
-            </div>                      
-
-            <div class="btn">
-                <form method="POST" action="/<%=data._id%>?_method=Delete">
-                    <button>Delete</button>
-                </form>
             </div>
         </div>
         <%}%>
-</body>
+<%}%>
+            <!-- <button><a href="/map">Click</a></button> -->
+            <%if(user && user._id.toString()==="68844f330d052ebc60694740" ){%>
+                <%for(let data of datas){%>
+                    <div class="data">
+                        <h2>welcome</h2>
+                        <div id="data-name">
+                            <h2>
+                                <%=data.name.username%>
+                            </h2>
+                        </div>
+                        <div id="data-lat">
+                            <h2>
+                                <%=data.Latitude%>
+                            </h2>
+                        </div>
+                        <div id="data-long">
+                            <h2>
+                                <%=data.Longitude%>
+                            </h2>
+                        </div>
 
-</html>
+                        <div class="btn">
+                            <form method="POST" action="/<%=data._id%>?_method=Delete">
+                                <button>Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    <%}%>
+                        <%}%>
+
+
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+                                integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+                                crossorigin="anonymous"></script>

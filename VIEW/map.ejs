@@ -1,47 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" 
-    integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" 
-    crossorigin="anonymous"
-     referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+        integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="Index.css">
     <title>Document</title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        html,body{
+
+        html,
+        body {
             width: 100%;
             height: 100%;
         }
-        #map{
+
+        #map {
             width: 100%;
             height: 100%;
         }
     </style>
 </head>
+
 <body>
+ <nav class="navbar navbar-expand-lg ">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link "  href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/map">View Map</a>
+        </li>
+       
+      </ul>
+       <div class="auth">
+        <% if(!user){%>
+            <a class="nav-link" href="/sign">Sign Up</a>
+            <a class="nav-link" href="/log">Log In</a>
+            <%}%>
+           <%if(user){%>
+                  <a class="nav-link " href="/logout">Log-Out</a>
+                  <%}%>
+        </div>
+    </div>
+  </div>
+</nav>
+
+
     <div id="map"></div>
-    
+    <script>
+        const userId = "<%= user ? user._id : '' %>"; // ✅ Send to client-side JS
+    </script>
+
     <script src="/socket.io/socket.io.js"></script>
-  
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" 
-    integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" 
-    crossorigin="anonymous" 
-    referrerpolicy="no-referrer"></script>
-    
-     <!-- cdn of socket io -->
 
-     <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" 
-     integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+"
-      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
+        integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <script src="/JS/Script.js"></script>
-      
+    <!-- cdn of socket io -->
+
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"
+        integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+"
+        crossorigin="anonymous"></script>
+
+    <script src="/js/Script.js"></script>
+
 </body>
+
 </html>

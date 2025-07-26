@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
+const User=require("./User.js");
 const DataSchema = new mongoose.Schema({
     name: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"User"
     },
     Latitude: {
         type: String,
