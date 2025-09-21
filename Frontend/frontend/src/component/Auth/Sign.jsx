@@ -37,8 +37,8 @@ function Sign(){
     {...register("email",{
       required:"Enter the eamil",
         pattern:{
-          value:/^[a-zA-Z0-9._+]+@+[a-zA-Z]+\.co\.in$/,
-          message:"Email should be in xyz@abc.co.in"
+          value:/^[a-zA-Z0-9._+]+@gmail\.com$/,
+          message:"Email should be in xyz@gmail.com"
         }
     })}  className='bg-amber-100 h-9 rounded-xl mt-1 pl-2'/>
     {errors.email && <p>{errors.email.message}</p>}
@@ -55,7 +55,7 @@ function Sign(){
     },
     })}  className='bg-amber-100 h-9 rounded-xl mt-2 pl-2'/>
     {errors.password && <p>{errors.password.message}</p>}
-    <Link className='ml-75 text-amber-100'>Forget Password</Link>
+    <Link to="/forget" className='ml-75 text-amber-100'>Forget Password</Link>
 
     
     <label htmlFor="role"  className='text-2xl  text-red-600'>Role</label>
