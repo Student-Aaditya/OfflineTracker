@@ -14,6 +14,7 @@ import dotenv from 'dotenv'
 import User from './Model/User.js';
 import morgan from 'morgan';
 import mapRoutes from './Router/mapRoutes.js'
+import weatherRoutes from './Router/weatherRoute.js'
 import cors from 'cors'
 const app=express();
 const port=7056;
@@ -30,7 +31,7 @@ app.use(morgan("dev"));
 
 
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:["http://localhost:5173","http://localhost:5174"],
     credentials:true,
     methods:["POST","GET","DELETE","UPDATE"]
 }))
@@ -52,6 +53,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use("/",router);
 app.use("/map",mapRoutes);
+app.use("/weather",weatherRoutes);
+
 
 app.listen(port,(req,res)=>{
     console.log(`server workinh on ${port}`);

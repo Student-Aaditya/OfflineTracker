@@ -1,6 +1,5 @@
 import User from "../Model/User.js";
 import { validatorSchema } from "../Pattern/controller.js";
-
 const controller = {
   getData: (req, res) => {
     res.render("../View/index.ejs");
@@ -22,7 +21,6 @@ const controller = {
       const newUser = new User({ email, username, role });
       const register = await User.register(newUser, password);
       console.log(register);
-      res.redirect("/");
     } catch (err) {
       console.log(err);
     }
@@ -42,29 +40,23 @@ const controller = {
       console.log(err);
     }
   },
-    login: async (req, res) => {
-  try {
-    const { username, password } = req.body;
-
-    if (!username || !password) {
-      return res.status(400).json({ msg: "Username and password required" });
+  Login: (req, res) => {
+    res.redirect("/")
+  },
+      Logout:(req,res)=>{
+           try {
+        req.logOut((err) => {
+            if (err) {
+                nextTick(err);
+            }
+            return res.status(200).json({ msg: "logout successful" });
+        })
     }
-
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(404).json({ msg: "User not found" });
+    catch (err) {
+        console.error(err);
+        res.status(500).send("please fill the data");
     }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ msg: "Invalid password" });
-    }
-
-    return res.status(200).json({ msg: "Login successful", user });
-  } catch (error) {
-    res.status(500).json({ msg: "Server error", error: error.message });
-  }
-},
+    },
   getAdminData: async (req, res) => {
     try {
       const data = await User.find({ role: "admin" });
@@ -82,12 +74,12 @@ const controller = {
     }
   },
 
-  forgetPassword:async(req,res)=>{
-    const {username,password}=req.body;
-    const newData= await User.updateOne({"username":username},{
-      $set:{"password":password}
+  forgetPassword: async (req, res) => {
+    const { username, password } = req.body;
+    const newData = await User.updateOne({ "username": username }, {
+      $set: { "password": password }
     })
-    res.status(200).json({msg:"password change",data:newData});
+    res.status(200).json({ msg: "password change", data: newData });
   }
 }
 

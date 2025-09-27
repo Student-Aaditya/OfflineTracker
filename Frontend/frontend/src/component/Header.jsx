@@ -10,7 +10,7 @@ function Header() {
             <Link to='/home' className='text-white'>Home</Link>
             <Link to='/sign' className='ml-4 text-white'>Map</Link>
             <Link to='/login' className='ml-4 text-white'>Weather</Link>
-             <Link to='/login' className='ml-4 text-white'>Weather</Link>
+             <Link to='/weather' className='ml-4 text-white'>Weather</Link>
             <Link to='/login' className='ml-4 text-white'>ChatBot</Link>
         </div>
          <div className='text-xl ml-70 p-2' >
