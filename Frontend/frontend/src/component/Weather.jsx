@@ -1,84 +1,128 @@
-import { useForm } from "react-hook-form";
 import Header from "./Header";
 import { useEffect, useState } from "react";
-import axios from 'axios'
+import axios from "axios";
+
 function Weather() {
-  const [weather, setWeather] = useState([]);
+  const [weather, setWeather] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  async function weatherData() {
-    try {
-      const response = await axios.get("http://127.0.0.1:7056/weather");
-      setWeather([response.data]);
-    } catch (err) {
-      console.log(err);
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+
+          try {
+            const response = await axios.get(
+              `http://127.0.0.1:7056/weather?lat=${lat}&lon=${lon}`
+            );
+            setWeather(response.data);
+            setLoading(false);
+          } catch (err) {
+            console.error(err);
+            setError("Failed to fetch weather data");
+            setLoading(false);
+          }
+        },
+        (err) => {
+          console.error(err);
+          setError("Permission denied or unable to fetch location");
+          setLoading(false);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+      setLoading(false);
     }
-  }
-  weatherData();
-}, []);
+  }, []);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      latitude: "",
-    },
-  });
-
-  const submit = (data) => {
-    console.log("data fetch:", data);
-  };
-
+    
   return (
-    <div className='bg-amber-300 items-center h-screen w-full  bg-cover bg-center'>
+    <div className="bg-[url('https://images.pexels.com/photos/53594/blue-clouds-day-fluffy-53594.jpeg')] h-screen w-full bg-cover bg-center flex flex-col items-center justify-start">
       <Header />
-      <div className=" w-70 h-80 p-10  mt-15 m-auto items-center  border-gray-50">
-        <form onSubmit={handleSubmit(submit)} >
-          <label htmlFor="latitude" className="text-red-500 text-xl">Enter the Latitude</label>
-          <input
-            type="text"
-            placeholder="Latitude"
-            {...register("latitude", {
-              pattern: {
-                value: /^\d+(\.\d+)?$/,
-                message: "Enter a numeric value only, e.g. 23.565",
-              },
-            })}
-            className="border p-2 text-white  rounded w-full mt-2 mb-5 border-gray-50"
-          />
-          {errors.latitude && <p className="text-red-500 mt-1">{errors.latitude.message}</p>}
-          <label htmlFor="longitude" className="text-red-500 text-xl ">Enter the Longitude</label>
-          <input
-            type="text"
-            placeholder="Longitude"
-            {...register("longitude", {
-              pattern: {
-                value: /^\d+(\.\d+)?$/,
-                message: "Enter a numeric value only, e.g. 23.565",
-              },
-            })}
-            className="border p-2 rounded w-full mt-2"
-          />
-          {errors.latitude && <p className="text-red-500 mt-1">{errors.latitude.message}</p>}
-          <button
-            type="submit"
-            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          >
-            Submit
-          </button>
-        </form>
-      </div>
+      
+      <div className="mt-15 w-full max-w-md p-6 backdrop-blur-sm rounded-3xl shadow-lg text-white">
+        <h1 className="text-3xl font-bold mb-4 text-center">Current Weather</h1>
 
-      <h1>Weather Data</h1>
-      <ul>
-        {weather.map(( item,index) => (
-          <li key={index}><p>{item.weather?item.weather[0].description:"no data"}</p>
-         <p> {item.name?item.name:"no name"}</p>
-         <p> {item.sys.country}</p></li>
-        ))}
-      </ul>
+        {loading && <p className="text-center">Fetching weather data...</p>}
+        {error && <p className="text-red-500 text-center">{error}</p>}
+
+        {weather && (
+          <div className="space-y-6">
+            {/* Location */}
+            <div className="text-center">
+              <h2 className="text-2xl font-semibold">{weather.name}, {weather.sys?.country}</h2>
+              <img
+                src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                alt="weather icon"
+                className="mx-auto"
+              />
+              <p className="capitalize text-xl">{weather.weather[0].description}</p>
+            </div>
+
+            {/* Metrics Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block font-bold mb-1">Temperature</label>
+
+                <input
+                  type="text"
+                  value={`${weather.main.temp} k`}
+                  readOnly
+                  className={`border p-2 rounded w-full text-center ${
+                    weather.main.temp > 30
+                      ? "text-red-500"
+                      : weather.main.temp < 15
+                      ? "text-blue-400"
+                      : "text-yellow-300"
+                  } `}
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold mb-1">Humidity</label>
+                <input
+                  type="text"
+                  value={`${weather.main.humidity} %`}
+                  readOnly
+                  className="border p-2 rounded w-full text-center "
+                />
+              </div>
+               <div>
+                <label className="block font-bold mb-1">State</label>
+                <input
+                  type="text"
+                  value={`${weather.weather[0].main} `}
+                  readOnly
+                  className="border p-2 rounded w-full text-center "
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold mb-1">Wind Speed</label>
+                <input
+                  type="text"
+                  value={`${weather.wind.speed} m/s`}
+                  readOnly
+                  className="border p-2 rounded w-full text-center "
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold mb-1">Pressure</label>
+                <input
+                  type="text"
+                  value={`${weather.main.pressure} hPa`}
+                  readOnly
+                  className="border p-2 rounded w-full text-center "
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

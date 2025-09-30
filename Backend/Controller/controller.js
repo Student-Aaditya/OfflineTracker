@@ -1,13 +1,9 @@
 import User from "../Model/User.js";
-import { validatorSchema } from "../Pattern/controller.js";
-const controller = {
-  getData: (req, res) => {
-    res.render("../View/index.ejs");
-  },
+import fs from 'fs'
 
-  signUp: (req, res) => {
-    res.render("../View/Auth/sign.ejs");
-  },
+import { validatorSchema } from "../Pattern/controller.js";
+
+const controller = {
   sign: async (req, res) => {
     try {
       let { username, email, password, role } = req.body;
@@ -20,7 +16,11 @@ const controller = {
       }
       const newUser = new User({ email, username, role });
       const register = await User.register(newUser, password);
-      console.log(register);
+      const data=JSON.stringify(register);
+       fs.appendFile("sign.txt",data,(err)=>{
+        if(err) throw err;
+      })
+      await register.save();
     } catch (err) {
       console.log(err);
     }

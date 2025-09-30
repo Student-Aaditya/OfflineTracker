@@ -6,6 +6,7 @@ import Sign from './component/Auth/Sign';
 import ResetPassword from './component/Auth/ResetPassword.jsx';
 import Verify from './component/Auth/Verify.jsx';
 import Weather from './component/Weather.jsx';
+import MapComponent from './component/MapComponent.jsx'
 
 function App() {
  
@@ -21,6 +22,7 @@ function App() {
       <Route path='/forget' element={<ResetPassword/>}/>
     <Route path='/emailSent' element={<Verify/>}/>
         <Route path='/weather' element={<Weather/>}/>
+        <Route path='/map' element={<MapComponent/>}/>
 
     </Routes>
     
