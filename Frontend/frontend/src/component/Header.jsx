@@ -7,16 +7,16 @@ function Header() {
             <img src="images.jpeg" alt="network issue" className='rounded-xl'/>
         </div>
         <div className='text-xl ml-70 p-2 ' >
-            <Link to='/home' className='text-white'>Home</Link>
-            <Link to='/map' className='ml-4 text-white'>Map</Link>
-            <Link to='/blog' className='ml-4 text-white'>Blog</Link>
-             <Link to='/weather' className='ml-4 text-white'>Weather</Link>
-            <Link to='/login' className='ml-4 text-white'>ChatBot</Link>
+            <Link to='/home' className='text-black'>Home</Link>
+            <Link to='/map' className='ml-4 text-black'>Map</Link>
+            <Link to='/blog' className='ml-4 text-black'>Blog</Link>
+             <Link to='/weather' className='ml-4 text-black'>Weather</Link>
+            <Link to='/login' className='ml-4 text-black'>ChatBot</Link>
         </div>
          <div className='text-xl ml-70 p-2' >
-            <Link to='/sign'className='ml-5 text-white' >Sign-Up</Link>
-            <Link to='/login' className='ml-5 text-white'>Log-In</Link>
-            <Link to='/profile' className='ml-5 text-white'>Profile</Link>
+            <Link to='/sign'className='ml-5 text-black' >Sign-Up</Link>
+            <Link to='/login' className='ml-5 text-black'>Log-In</Link>
+            <Link to='/profile' className='ml-5 text-black'>Profile</Link>
         </div>
       </nav>
     </>
