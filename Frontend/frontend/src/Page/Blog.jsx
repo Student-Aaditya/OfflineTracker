@@ -33,6 +33,16 @@ function Blog() {
       date: "30/09/2025",
       image: "space.jpeg",
       avatar: "rahul.png"
+    },
+     {
+      bg: "bg-blue-500",
+      topic: "Technology",
+      title: "What's New In 2022 Tech",
+      content: "Technologies like AI, ML, and Big Data are driving intelligent decision-making while Blockchain ensures secure and transparent processes.",
+      author: "Aaditya",
+      date: "2/10/2025",
+      image: "images.jpeg",
+      avatar: "google.png"
     }
   ];
 
@@ -41,6 +51,11 @@ function Blog() {
       <Header />
       <hr />
       <div className='flex mt-6 ml-8 flex-wrap'>
+        {cards.map((card, index) => (
+          <Card key={index} data={card} />
+        ))}
+      </div>
+        <div className='flex mt-6 ml-8 flex-wrap'>
         {cards.map((card, index) => (
           <Card key={index} data={card} />
         ))}
