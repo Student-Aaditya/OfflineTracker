@@ -41,7 +41,7 @@ function Weather() {
     
   return (
     <div className="bg-[url('https://images.pexels.com/photos/53594/blue-clouds-day-fluffy-53594.jpeg')] h-screen w-full bg-cover bg-center flex flex-col items-center justify-start">
-      <Header />
+      <Header textColor={"text-white"} textFamily={"font-mono"} />
       
       <div className="mt-15 w-full max-w-md p-6 backdrop-blur-sm rounded-3xl shadow-lg text-white">
         <h1 className="text-3xl font-bold mb-4 text-center">Current Weather</h1>
