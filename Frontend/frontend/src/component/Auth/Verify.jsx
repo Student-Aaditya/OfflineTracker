@@ -7,6 +7,7 @@ function Verify() {
        <div className=' items-center mx-auto h-100 w-100 mt-16   rounded-2xl border border-gray-200 p-12 '>
 
    <h1 className="text-orange-400 text-2xl ">Successful a forget Password Link Trasnfer to the Email</h1>
+   
     </div>
     </div>
   
