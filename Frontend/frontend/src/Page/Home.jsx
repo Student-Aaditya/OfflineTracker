@@ -65,7 +65,7 @@ function Blog() {
       </div>
         <div className='flex mt-6 ml-8 flex-wrap'>
         {cards.map((card, index) => (
-          <Card key={index} data={card} />
+          <Card key={index} data={card}/>
         ))}
       </div>
         <div className='flex mt-6 ml-8 flex-wrap'>
